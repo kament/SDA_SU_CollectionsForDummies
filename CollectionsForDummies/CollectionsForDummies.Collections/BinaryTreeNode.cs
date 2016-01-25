@@ -30,7 +30,7 @@
                 return this.RightNode != null;
             }
         }
-        
+
         public bool IsLeaf
         {
             get
@@ -46,12 +46,12 @@
                 return this.ParentNode == null;
             }
         }
-        
+
         public bool IsLeftChild
         {
             get
             {
-                if(this.ParentNode != null)
+                if (this.ParentNode != null)
                 {
                     return this.ParentNode.LeftNode.Equals(this);
                 }
@@ -59,12 +59,12 @@
                 return false;
             }
         }
-        
+
         public bool IsRightChild
         {
             get
             {
-                if(this.ParentNode != null)
+                if (this.ParentNode != null)
                 {
                     return this.ParentNode.RightNode.Equals(this);
                 }

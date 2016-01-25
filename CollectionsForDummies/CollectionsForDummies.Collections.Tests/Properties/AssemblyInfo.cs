@@ -2,17 +2,14 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-//Info about which assembleys is the project visible
-[assembly: InternalsVisibleTo("CollectionsForDummies.Collections.Tests")]
-
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CollectionsForDummies.Collections")]
+[assembly: AssemblyTitle("CollectionsForDummies.Collections.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CollectionsForDummies.Collections")]
+[assembly: AssemblyProduct("CollectionsForDummies.Collections.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -23,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6145c1a2-4830-48f1-a6a0-d4202095c591")]
+[assembly: Guid("2fb867d1-10b0-4da4-907a-99fb99a2b96d")]
 
 // Version information for an assembly consists of the following four values:
 //
