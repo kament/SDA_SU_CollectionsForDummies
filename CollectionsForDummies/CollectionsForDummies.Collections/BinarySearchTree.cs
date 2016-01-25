@@ -59,9 +59,10 @@ namespace CollectionsForDummies.Collections
                     if (item.Value.CompareTo(currentRootNode.Value) < 0)
                     {
                         //add the velue in the left node if its null
-                        if (currentRootNode.HasLeftNode)
+                        if (!currentRootNode.HasLeftNode)
                         {
                             currentRootNode.LeftNode = item;
+                            item.ParentNode = currentRootNode;
                             this.Count++;
                             break;
                         }
@@ -71,9 +72,10 @@ namespace CollectionsForDummies.Collections
                     else if (item.Value.CompareTo(currentRootNode.Value) > 0)
                     {
                         //add the value in the right node if its null
-                        if (currentRootNode.HasRightNode)
+                        if (!currentRootNode.HasRightNode)
                         {
                             currentRootNode.RightNode = item;
+                            item.ParentNode = currentRootNode;
                             this.Count++;
                             break;
                         }

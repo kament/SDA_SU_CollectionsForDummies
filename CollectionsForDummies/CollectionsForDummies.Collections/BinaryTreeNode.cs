@@ -7,6 +7,12 @@
             this.ParentNode = parentNode;
         }
 
+        public BinaryTreeNode(BinaryTreeNode<T> parentNode, T value)
+            :this(parentNode)
+        {
+            this.Value = value;
+        }
+
         public T Value { get; set; }
 
         public BinaryTreeNode<T> ParentNode { get; set; }
