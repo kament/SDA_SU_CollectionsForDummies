@@ -57,7 +57,7 @@
         {
             get
             {
-                if (this.Parent != null)
+                if (this.Parent != null && this.Parent.LeftChild != null)
                 {
                     return this.Parent.LeftChild.Equals(this);
                 }
@@ -70,7 +70,7 @@
         {
             get
             {
-                if (this.Parent != null)
+                if (this.Parent != null && this.Parent.RightChild != null)
                 {
                     return this.Parent.RightChild.Equals(this);
                 }

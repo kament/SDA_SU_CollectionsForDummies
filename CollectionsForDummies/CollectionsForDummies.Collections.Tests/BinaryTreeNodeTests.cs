@@ -50,7 +50,7 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
-        public void ShoulCorrectlyAddLeftNode()
+        public void ShoulCorrectlyAddLeftChild()
         {
             var root = new BinaryTreeNode<int>(null);
 
@@ -63,7 +63,7 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
-        public void ShouldCorrectlyAddRightNode()
+        public void ShouldCorrectlyAddRightChild()
         {
             var root = new BinaryTreeNode<int>(null);
 
@@ -73,6 +73,54 @@ namespace CollectionsForDummies.Collections.Tests
             Assert.AreEqual(rightChild.Parent, root);
             Assert.AreEqual(root.RightChild, rightChild);
             Assert.IsTrue(rightChild.IsRightChild);
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemIsLeftChild()
+        {
+            var root = new BinaryTreeNode<int>(null, 10);
+
+            var leftChild = new BinaryTreeNode<int>(root, 14);
+
+            root.LeftChild = leftChild;
+
+            Assert.IsTrue(leftChild.IsLeftChild);
+        }
+
+        [TestMethod]
+        public void ShouldReturnFalseWhenItemIsNotLeftChild()
+        {
+            var root = new BinaryTreeNode<int>(null, 10);
+
+            var rightChild = new BinaryTreeNode<int>(root, 1);
+
+            root.RightChild = rightChild;
+
+            Assert.IsFalse(rightChild.IsLeftChild);
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemIsRightChild()
+        {
+            var root = new BinaryTreeNode<int>(null, 10);
+
+            var rightChild = new BinaryTreeNode<int>(root, 14);
+
+            root.RightChild = rightChild;
+
+            Assert.IsTrue(rightChild.IsRightChild);
+        }
+
+        [TestMethod]
+        public void ShouldReturnFalseWhenItemIsNotRightChild()
+        {
+            var root = new BinaryTreeNode<int>(null, 10);
+
+            var leftChild = new BinaryTreeNode<int>(root, 1);
+
+            root.LeftChild = leftChild;
+
+            Assert.IsFalse(leftChild.IsRightChild);
         }
     }
 }
