@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CollectionsForDummies.Collections.Tests
 {
@@ -198,18 +195,6 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
-        public void ShouldUpdateCounterWhenRemoveItem()
-        {
-            this.ShouldUpdateTheCounterWhenAddNewItems(new int[] { 5, 2, 9 }, 3);
-        }
-
-        [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems500()
-        {
-            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 2 }, 500);
-        }
-
-        [TestMethod]
         public void ShouldUpdateTheCounterWhenAddInTheLeftSubtree()
         {
             this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 2, -10 }, 2);
@@ -230,7 +215,37 @@ namespace CollectionsForDummies.Collections.Tests
         [TestMethod]
         public void ShouldUpdateTheCounterWhenAddItemsWith13Items()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 10, -100, 144, 27, 88, 56, 22, 9, -6, 14, 66666666, 10000000, 111 }, 13);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 10, -100, 144, 27, 88, 56, 22, 9, -6, 14, 666666, 10000, 111 }, 13);
+        }
+
+        [TestMethod]
+        public void ShouldUpdateCounterWhenRemoveItem()
+        {
+            var binaryTree = this.CreateTree(new[] { 2, 5, 8, -10 });
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 8));
+
+            Assert.AreEqual(3, binaryTree.Count);
+        }
+
+        [TestMethod]
+        public void ShouldUpdateCounterWhenRemoveItemWhenTreeIsBigger()
+        {
+            var binaryTree = this.CreateTree(new[] { 10, -100, 144, 27, 88, 56, 22, 9, -6, 14, 666666, 10000, 111 });
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 666666));
+
+            Assert.AreEqual(12, binaryTree.Count);
+        }
+
+        [TestMethod]
+        public void ShouldNotUpdateCounterWhenRemoveUnexistingItem()
+        {
+            var binaryTree = this.CreateTree(new[] { 2, 5, 8, -10 });
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 666666));
+
+            Assert.AreEqual(4, binaryTree.Count);
         }
 
         private void ShouldUpdateTheCounterWhenAddNewItems(int[] items, int itemsCount)
