@@ -103,7 +103,10 @@ namespace CollectionsForDummies.Collections
             if (nodeInTheTree == null)
             {
                 //maybe its a good idea to return false
-                throw new ArgumentException("Node does not exist! " + item.Value);
+                //throw new ArgumentException("Node does not exist! " + item.Value);
+
+                //return false is beter idea, i think
+                return false; 
             }
 
             var isLeftNodeNull = nodeInTheTree.LeftChild == null;
