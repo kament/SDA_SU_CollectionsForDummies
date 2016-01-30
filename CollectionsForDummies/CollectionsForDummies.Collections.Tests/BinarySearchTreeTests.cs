@@ -58,8 +58,8 @@ namespace CollectionsForDummies.Collections.Tests
             var nodeToAdd = new BinaryTreeNode<int>(null, 10);
             binaryTree.Add(nodeToAdd);
 
-            Assert.AreEqual(nodeToAdd, root.LeftNode, "Should be added as left node!");
-            Assert.AreEqual(root, nodeToAdd.ParentNode, "Parent node should be the root node, after adding!");
+            Assert.AreEqual(nodeToAdd, root.LeftChild, "Should be added as left node!");
+            Assert.AreEqual(root, nodeToAdd.Parent, "Parent node should be the root node, after adding!");
         }
 
         [TestMethod]
@@ -72,8 +72,8 @@ namespace CollectionsForDummies.Collections.Tests
             var nodeToAdd = new BinaryTreeNode<int>(null, 17);
             binaryTree.Add(nodeToAdd);
 
-            Assert.AreEqual(nodeToAdd, root.RightNode, "Should be added as right node!");
-            Assert.AreEqual(root, nodeToAdd.ParentNode, "Parent node should be the root node, after adding!");
+            Assert.AreEqual(nodeToAdd, root.RightChild, "Should be added as right node!");
+            Assert.AreEqual(root, nodeToAdd.Parent, "Parent node should be the root node, after adding!");
         }
 
         [TestMethod]
@@ -107,13 +107,13 @@ namespace CollectionsForDummies.Collections.Tests
             binaryTree.Add(new BinaryTreeNode<int>(null, 29));
 
             Assert.AreEqual(20, binaryTree.Root.Value);
-            Assert.AreEqual(5, binaryTree.Root.LeftNode.Value);
-            Assert.AreEqual(6, binaryTree.Root.LeftNode.RightNode.Value);
-            Assert.AreEqual(30, binaryTree.Root.RightNode.Value);
-            Assert.AreEqual(28, binaryTree.Root.RightNode.LeftNode.Value);
-            Assert.AreEqual(21, binaryTree.Root.RightNode.LeftNode.LeftNode.Value);
-            Assert.AreEqual(50, binaryTree.Root.RightNode.RightNode.Value);
-            Assert.AreEqual(29, binaryTree.Root.RightNode.LeftNode.RightNode.Value);
+            Assert.AreEqual(5, binaryTree.Root.LeftChild.Value);
+            Assert.AreEqual(6, binaryTree.Root.LeftChild.RightChild.Value);
+            Assert.AreEqual(30, binaryTree.Root.RightChild.Value);
+            Assert.AreEqual(28, binaryTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(21, binaryTree.Root.RightChild.LeftChild.LeftChild.Value);
+            Assert.AreEqual(50, binaryTree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(29, binaryTree.Root.RightChild.LeftChild.RightChild.Value);
 
             Assert.AreEqual(8, binaryTree.Count);
         }

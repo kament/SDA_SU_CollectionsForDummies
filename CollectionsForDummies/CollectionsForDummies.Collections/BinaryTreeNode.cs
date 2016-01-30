@@ -4,7 +4,7 @@
     {
         public BinaryTreeNode(BinaryTreeNode<T> parentNode)
         {
-            this.ParentNode = parentNode;
+            this.Parent = parentNode;
         }
 
         public BinaryTreeNode(BinaryTreeNode<T> parentNode, T value)
@@ -15,25 +15,25 @@
 
         public T Value { get; set; }
 
-        public BinaryTreeNode<T> ParentNode { get; set; }
+        public BinaryTreeNode<T> Parent { get; set; }
 
-        public BinaryTreeNode<T> LeftNode { get; set; }
+        public BinaryTreeNode<T> LeftChild { get; set; }
 
-        public BinaryTreeNode<T> RightNode { get; set; }
+        public BinaryTreeNode<T> RightChild { get; set; }
 
-        public bool HasLeftNode
+        public bool HasLeftChild
         {
             get
             {
-                return this.LeftNode != null;
+                return this.LeftChild != null;
             }
         }
 
-        public bool HasRightNode
+        public bool HasRightChild
         {
             get
             {
-                return this.RightNode != null;
+                return this.RightChild != null;
             }
         }
 
@@ -41,7 +41,7 @@
         {
             get
             {
-                return (!this.HasLeftNode) && (!this.HasRightNode);
+                return (!this.HasLeftChild) && (!this.HasRightChild);
             }
         }
 
@@ -49,7 +49,7 @@
         {
             get
             {
-                return this.ParentNode == null;
+                return this.Parent == null;
             }
         }
 
@@ -57,9 +57,9 @@
         {
             get
             {
-                if (this.ParentNode != null)
+                if (this.Parent != null)
                 {
-                    return this.ParentNode.LeftNode.Equals(this);
+                    return this.Parent.LeftChild.Equals(this);
                 }
 
                 return false;
@@ -70,9 +70,9 @@
         {
             get
             {
-                if (this.ParentNode != null)
+                if (this.Parent != null)
                 {
-                    return this.ParentNode.RightNode.Equals(this);
+                    return this.Parent.RightChild.Equals(this);
                 }
 
                 return false;

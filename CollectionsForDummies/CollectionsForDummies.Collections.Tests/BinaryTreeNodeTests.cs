@@ -20,7 +20,7 @@ namespace CollectionsForDummies.Collections.Tests
         {
             var root = new BinaryTreeNode<int>(null);
 
-            Assert.AreEqual(null, root.ParentNode);
+            Assert.AreEqual(null, root.Parent);
             Assert.IsTrue(root.IsRoot);
         }
 
@@ -45,8 +45,8 @@ namespace CollectionsForDummies.Collections.Tests
         {
             var root = new BinaryTreeNode<int>(null);
 
-            Assert.IsFalse(root.HasLeftNode);
-            Assert.IsFalse(root.HasRightNode);
+            Assert.IsFalse(root.HasLeftChild);
+            Assert.IsFalse(root.HasRightChild);
         }
 
         [TestMethod]
@@ -55,10 +55,10 @@ namespace CollectionsForDummies.Collections.Tests
             var root = new BinaryTreeNode<int>(null);
 
             var leftChild = new BinaryTreeNode<int>(root);
-            root.LeftNode = leftChild;
+            root.LeftChild = leftChild;
 
-            Assert.AreEqual(leftChild.ParentNode, root);
-            Assert.AreEqual(root.LeftNode, leftChild);
+            Assert.AreEqual(leftChild.Parent, root);
+            Assert.AreEqual(root.LeftChild, leftChild);
             Assert.IsTrue(leftChild.IsLeftChild);
         }
 
@@ -68,10 +68,10 @@ namespace CollectionsForDummies.Collections.Tests
             var root = new BinaryTreeNode<int>(null);
 
             var rightChild = new BinaryTreeNode<int>(root);
-            root.RightNode = rightChild;
+            root.RightChild = rightChild;
 
-            Assert.AreEqual(rightChild.ParentNode, root);
-            Assert.AreEqual(root.RightNode, rightChild);
+            Assert.AreEqual(rightChild.Parent, root);
+            Assert.AreEqual(root.RightChild, rightChild);
             Assert.IsTrue(rightChild.IsRightChild);
         }
     }

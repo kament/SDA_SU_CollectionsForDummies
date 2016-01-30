@@ -47,7 +47,6 @@
     <Compile Include="Enumerators\BinarySearchTreeInOrderEnumerator.cs" />
     <Compile Include="Enumerators\BinarySearchTreePostOrderEnumerator.cs" />
     <Compile Include="Enumerators\BinarySearchTreePreOrderEnumerator.cs" />
-    <Compile Include="OrderedDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeWalk.cs" />
   </ItemGroup>

@@ -7,60 +7,45 @@ using System.Threading.Tasks;
 
 namespace CollectionsForDummies.Collections
 {
-    public class AvlTree<T> : ICollection<T> where T : IComparable<T>
+    internal class AvlTree<T> : BinarySearchTree<T>, ICollection<BinaryTreeNode<T>> where T : IComparable<T>
     {
         public AvlTree()
+            :base()
         {
-            //dfsdfsdfs
+        }
+        
+        public override void Add(BinaryTreeNode<T> item)
+        {
+            base.Add(item);
+
+            this.Balance(item);
+        }
+        
+        public override bool Contains(BinaryTreeNode<T> item)
+        {
+            return base.Contains(item);
+        }
+        
+        public override bool Remove(BinaryTreeNode<T> item)
+        {
+            var removed = base.Remove(item);
+
+            this.Balance(item);
+
+            return removed;
         }
 
-        public int Count
+        public override void CopyTo(BinaryTreeNode<T>[] array, int arrayIndex)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            base.CopyTo(array, arrayIndex);
         }
 
-        public bool IsReadOnly
+        IEnumerator<BinaryTreeNode<T>> IEnumerable<BinaryTreeNode<T>>.GetEnumerator()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            return base.GetEnumerator();
         }
 
-        public void Add(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Contains(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
+        private void Balance(BinaryTreeNode<T> startNode)
         {
             throw new NotImplementedException();
         }

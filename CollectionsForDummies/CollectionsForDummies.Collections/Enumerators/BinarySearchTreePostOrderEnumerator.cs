@@ -14,8 +14,8 @@ namespace CollectionsForDummies.Collections.Enumerators
         {
             if (node != null)
             {
-                this.VisitNode(node.LeftNode);
-                this.VisitNode(node.RightNode);
+                this.VisitNode(node.LeftChild);
+                this.VisitNode(node.RightChild);
                 this.TraverseQueue.Enqueue(node);
             }
         }

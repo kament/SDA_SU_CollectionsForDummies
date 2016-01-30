@@ -31,11 +31,11 @@ namespace CollectionsForDummies.Collections
         {
         }
 
-        public TreeWalk TreeWalk { get; set; }
+        public virtual TreeWalk TreeWalk { get; set; }
 
-        public int Count { get; private set; }
+        public virtual int Count { get; private set; }
 
-        public bool IsReadOnly
+        public virtual bool IsReadOnly
         {
             get
             {
@@ -43,7 +43,7 @@ namespace CollectionsForDummies.Collections
             }
         }
 
-        public void Add(BinaryTreeNode<T> item)
+        public virtual void Add(BinaryTreeNode<T> item)
         {
             if (this.Root == null)
             {
@@ -59,28 +59,28 @@ namespace CollectionsForDummies.Collections
                     if (item.Value.CompareTo(currentRootNode.Value) < 0)
                     {
                         //add the velue in the left node if its null
-                        if (!currentRootNode.HasLeftNode)
+                        if (!currentRootNode.HasLeftChild)
                         {
-                            currentRootNode.LeftNode = item;
-                            item.ParentNode = currentRootNode;
+                            currentRootNode.LeftChild = item;
+                            item.Parent = currentRootNode;
                             this.Count++;
                             break;
                         }
 
-                        currentRootNode = currentRootNode.LeftNode;
+                        currentRootNode = currentRootNode.LeftChild;
                     }
                     else if (item.Value.CompareTo(currentRootNode.Value) > 0)
                     {
                         //add the value in the right node if its null
-                        if (!currentRootNode.HasRightNode)
+                        if (!currentRootNode.HasRightChild)
                         {
-                            currentRootNode.RightNode = item;
-                            item.ParentNode = currentRootNode;
+                            currentRootNode.RightChild = item;
+                            item.Parent = currentRootNode;
                             this.Count++;
                             break;
                         }
 
-                        currentRootNode = currentRootNode.RightNode;
+                        currentRootNode = currentRootNode.RightChild;
                     }
                     else
                     {
@@ -90,13 +90,13 @@ namespace CollectionsForDummies.Collections
                 }
             }
         }
-        
-        public bool Contains(BinaryTreeNode<T> item)
+
+        public virtual bool Contains(BinaryTreeNode<T> item)
         {
             return this.Search(item) != null;
         }
         
-        public bool Remove(BinaryTreeNode<T> item)
+        public virtual bool Remove(BinaryTreeNode<T> item)
         {
             var nodeInTheTree = this.Search(item);
 
@@ -106,58 +106,58 @@ namespace CollectionsForDummies.Collections
                 throw new ArgumentException("Node does not exist! " + item.Value);
             }
 
-            var isLeftNodeNull = nodeInTheTree.LeftNode == null;
-            var isRightNodeNull = nodeInTheTree.RightNode == null;
+            var isLeftNodeNull = nodeInTheTree.LeftChild == null;
+            var isRightNodeNull = nodeInTheTree.RightChild == null;
 
-            var parentNode = nodeInTheTree.ParentNode;
+            var parentNode = nodeInTheTree.Parent;
 
             if (nodeInTheTree.IsLeaf)
             {
                 if (nodeInTheTree.IsLeftChild)
                 {
-                    parentNode.LeftNode = null;
+                    parentNode.LeftChild = null;
                 }
                 else if (nodeInTheTree.IsRightChild)
                 {
-                    parentNode.RightNode = null;
+                    parentNode.RightChild = null;
                 }
             }
-            else if (nodeInTheTree.HasLeftNode && !nodeInTheTree.HasRightNode)
+            else if (nodeInTheTree.HasLeftChild && !nodeInTheTree.HasRightChild)
             {
                 if (nodeInTheTree.IsLeftChild)
                 {
-                    parentNode.LeftNode = nodeInTheTree.LeftNode;
+                    parentNode.LeftChild = nodeInTheTree.LeftChild;
                 }
                 else if (nodeInTheTree.IsRightChild)
                 {
-                    parentNode.RightNode = nodeInTheTree.LeftNode;
+                    parentNode.RightChild = nodeInTheTree.LeftChild;
                 }
             }
-            else if (!nodeInTheTree.HasLeftNode && nodeInTheTree.HasRightNode)
+            else if (!nodeInTheTree.HasLeftChild && nodeInTheTree.HasRightChild)
             {
                 if (nodeInTheTree.IsLeftChild)
                 {
-                    parentNode.LeftNode = nodeInTheTree.RightNode;
+                    parentNode.LeftChild = nodeInTheTree.RightChild;
                 }
                 else if (nodeInTheTree.IsRightChild)
                 {
-                    parentNode.RightNode = nodeInTheTree.RightNode;
+                    parentNode.RightChild = nodeInTheTree.RightChild;
                 }
             }
             else
             {
-                var minElement = this.GetMininalElement(nodeInTheTree.RightNode);
+                var minElement = this.GetMininalElement(nodeInTheTree.RightChild);
 
                 //TODO: should be unitested very carefully
                 nodeInTheTree.Value = minElement.Value;
 
                 if (minElement.IsLeftChild)
                 {
-                    minElement.ParentNode.LeftNode = null;
+                    minElement.Parent.LeftChild = null;
                 }
                 else
                 {
-                    minElement.ParentNode.RightNode = null;
+                    minElement.Parent.RightChild = null;
                 }
             }
 
@@ -166,7 +166,7 @@ namespace CollectionsForDummies.Collections
             return true;
         }
 
-        public void CopyTo(BinaryTreeNode<T>[] array, int arrayIndex)
+        public virtual void CopyTo(BinaryTreeNode<T>[] array, int arrayIndex)
         {
             var enumerator = this.GetEnumerator();
 
@@ -183,7 +183,7 @@ namespace CollectionsForDummies.Collections
             }
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             var enumerator = this.GetEnumerator();
             while (enumerator.MoveNext())
@@ -194,7 +194,7 @@ namespace CollectionsForDummies.Collections
             enumerator.Dispose();
         }
 
-        public IEnumerator<BinaryTreeNode<T>> GetEnumerator()
+        public virtual IEnumerator<BinaryTreeNode<T>> GetEnumerator()
         {
             switch (this.TreeWalk)
             {
@@ -212,6 +212,21 @@ namespace CollectionsForDummies.Collections
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns the height of the subtree rooted at the parameter node
+        /// </summary>
+        public virtual int GetHeight(BinaryTreeNode<T> startNode)
+        {
+            if (startNode != null)
+            {
+                return 1 + Math.Max(this.GetHeight(startNode.LeftChild), this.GetHeight(startNode.RightChild));
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         //Return the min element in a tree
@@ -232,8 +247,8 @@ namespace CollectionsForDummies.Collections
                         minElement = currentNode;
                     }
 
-                    nodesToTravers.Enqueue(currentNode.LeftNode);
-                    nodesToTravers.Enqueue(currentNode.RightNode);
+                    nodesToTravers.Enqueue(currentNode.LeftChild);
+                    nodesToTravers.Enqueue(currentNode.RightChild);
                 }
             }
 
@@ -259,11 +274,11 @@ namespace CollectionsForDummies.Collections
                 }
                 else if (treeNode.Value.CompareTo(currentNode.Value) < 0)
                 {
-                    currentNode = currentNode.LeftNode;
+                    currentNode = currentNode.LeftChild;
                 }
                 else
                 {
-                    currentNode = currentNode.RightNode;
+                    currentNode = currentNode.RightChild;
                 }
             }
 
