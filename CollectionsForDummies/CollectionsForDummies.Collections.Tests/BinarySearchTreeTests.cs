@@ -178,71 +178,76 @@ namespace CollectionsForDummies.Collections.Tests
 
             Assert.AreEqual(8, binaryTree.Count, "Items count is should be 8");
         }
-        
+
         [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems7()
+        public void ShouldUpdateTheCounterWhenAddForFirstTime()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(7);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 2 }, 1);
         }
 
         [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems10()
+        public void CountShouldBeZeroWheAddNoItems()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(10);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new int[] { }, 0);
         }
 
         [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems40()
+        public void ShouldNotUpdateCounterWhenAddAlwreadyExistingItem()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(40);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new int[] { 5, 2, 9, 5, 5, 5 }, 3);
         }
 
         [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems100()
+        public void ShouldUpdateCounterWhenRemoveItem()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(100);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new int[] { 5, 2, 9 }, 3);
         }
 
         [TestMethod]
         public void ShouldUpdateTheCounterWhenAddItems500()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(500);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 2 }, 500);
         }
 
         [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems1000()
+        public void ShouldUpdateTheCounterWhenAddInTheLeftSubtree()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(1000);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 2, -10 }, 2);
         }
 
         [TestMethod]
-        public void ShouldUpdateTheCounterWhenAddItems10000()
+        public void ShouldUpdateTheCounterWhenAddInTheRightSubtree()
         {
-            this.ShouldUpdateTheCounterWhenAddNewItems(10000);
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 2, 15 }, 2);
         }
 
-        private void ShouldUpdateTheCounterWhenAddNewItems(int itemsCount)
+        [TestMethod]
+        public void ShouldUpdateTheCounterWhenAddItemsWith12Items()
+        {
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 15, 6, 7, 2, 4, 18, -56, 22, 55, -37, 12, 16 }, 12);
+        }
+
+        [TestMethod]
+        public void ShouldUpdateTheCounterWhenAddItemsWith13Items()
+        {
+            this.ShouldUpdateTheCounterWhenAddNewItems(new[] { 10, -100, 144, 27, 88, 56, 22, 9, -6, 14, 66666666, 10000000, 111 }, 13);
+        }
+
+        private void ShouldUpdateTheCounterWhenAddNewItems(int[] items, int itemsCount)
+        {
+            Assert.AreEqual(itemsCount, this.CreateTree(items).Count);
+        }
+
+        private BinarySearchTree<int> CreateTree(int[] items)
         {
             var binaryTree = new BinarySearchTree<int>();
 
-            var addedNumbers = new HashSet<int>();
-            var random = new Random();
-
-            for (int i = 0; i < itemsCount; i++)
+            for (int i = 0; i < items.Length; i++)
             {
-                var numberToAdd = random.Next();
-
-                while (addedNumbers.Contains(numberToAdd))
-                {
-                    numberToAdd = random.Next();
-                }
-
-                binaryTree.Add(new BinaryTreeNode<int>(null, numberToAdd));
-
-                addedNumbers.Add(numberToAdd);
+                binaryTree.Add(new BinaryTreeNode<int>(null, items[i]));
             }
 
-            Assert.AreEqual(itemsCount, binaryTree.Count);
+            return binaryTree;
         }
     }
 }
