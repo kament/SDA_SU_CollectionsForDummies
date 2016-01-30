@@ -91,7 +91,7 @@ namespace CollectionsForDummies.Collections
             }
         }
 
-        public virtual bool Contains(BinaryTreeNode<T> item)
+        public bool Contains(BinaryTreeNode<T> item)
         {
             return this.Search(item) != null;
         }
@@ -166,7 +166,7 @@ namespace CollectionsForDummies.Collections
             return true;
         }
 
-        public virtual void CopyTo(BinaryTreeNode<T>[] array, int arrayIndex)
+        public void CopyTo(BinaryTreeNode<T>[] array, int arrayIndex)
         {
             var enumerator = this.GetEnumerator();
 
@@ -183,7 +183,7 @@ namespace CollectionsForDummies.Collections
             }
         }
 
-        public virtual void Clear()
+        public void Clear()
         {
             var enumerator = this.GetEnumerator();
             while (enumerator.MoveNext())
@@ -194,7 +194,7 @@ namespace CollectionsForDummies.Collections
             enumerator.Dispose();
         }
 
-        public virtual IEnumerator<BinaryTreeNode<T>> GetEnumerator()
+        public IEnumerator<BinaryTreeNode<T>> GetEnumerator()
         {
             switch (this.TreeWalk)
             {

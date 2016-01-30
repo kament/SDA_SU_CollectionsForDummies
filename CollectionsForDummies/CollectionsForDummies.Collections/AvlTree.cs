@@ -26,7 +26,7 @@ namespace CollectionsForDummies.Collections
             return removed;
         }
 
-        protected virtual void Balance(BinaryTreeNode<T> startNode)
+        protected void Balance(BinaryTreeNode<T> startNode)
         {
             var nodeToBalance = startNode;
 
@@ -44,7 +44,7 @@ namespace CollectionsForDummies.Collections
             }
         }
 
-        protected virtual void Balance(BinaryTreeNode<T> nodeToBalance, int balance)
+        protected void Balance(BinaryTreeNode<T> nodeToBalance, int balance)
         {
             if (balance > 1)
             {
@@ -74,7 +74,7 @@ namespace CollectionsForDummies.Collections
             }
         }
 
-        protected virtual void RotateRight(BinaryTreeNode<T> root)
+        protected void RotateRight(BinaryTreeNode<T> root)
         {
             var newRoot = root.LeftChild;
             newRoot.Parent = root.Parent;
@@ -93,7 +93,7 @@ namespace CollectionsForDummies.Collections
             root.Parent = newRoot;
         }
 
-        protected virtual void RotateLeft(BinaryTreeNode<T> root)
+        protected void RotateLeft(BinaryTreeNode<T> root)
         {
             var newRoot = root.RightChild;
             newRoot.Parent = root.Parent;
@@ -112,7 +112,7 @@ namespace CollectionsForDummies.Collections
             root.Parent = newRoot;
         }
 
-        protected virtual int GetBalance(BinaryTreeNode<T> root)
+        protected int GetBalance(BinaryTreeNode<T> root)
         {
             return this.GetHeight(root.LeftChild) - this.GetHeight(root.RightChild);
         }
