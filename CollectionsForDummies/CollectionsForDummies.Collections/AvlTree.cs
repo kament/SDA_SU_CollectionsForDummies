@@ -10,11 +10,21 @@ namespace CollectionsForDummies.Collections
         {
         }
 
+        public void Add(T value)
+        {
+            this.Add(new BinaryTreeNode<T>(null, value));
+        }
+
         public override void Add(BinaryTreeNode<T> item)
         {
             base.Add(item);
 
             this.Balance(item);
+        }
+
+        public bool Remove(T value)
+        {
+            return this.Remove(new BinaryTreeNode<T>(null, value));
         }
         
         public override bool Remove(BinaryTreeNode<T> item)
