@@ -248,6 +248,94 @@ namespace CollectionsForDummies.Collections.Tests
             Assert.AreEqual(4, binaryTree.Count);
         }
 
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInTheTreeAndItIsTheRoot()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 20)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInTheLeftSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.LeftChild = new BinaryTreeNode<int>(binaryTree.Root, 15);
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 15)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInTheRightSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.RightChild = new BinaryTreeNode<int>(binaryTree.Root, 25);
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 25)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInLeftSubtreeAndThanInItsRightSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.LeftChild = new BinaryTreeNode<int>(binaryTree.Root, 15);
+            binaryTree.Root.LeftChild.RightChild = new BinaryTreeNode<int>(binaryTree.Root.LeftChild, 18);
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 18)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInLeftSubtreeAndThanInItsLeftSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.LeftChild = new BinaryTreeNode<int>(binaryTree.Root, 15);
+            binaryTree.Root.LeftChild.LeftChild = new BinaryTreeNode<int>(binaryTree.Root.LeftChild, 10);
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 10)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInRightSubtreeAndThanInItsRightSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.RightChild = new BinaryTreeNode<int>(binaryTree.Root, 25);
+            binaryTree.Root.RightChild.RightChild = new BinaryTreeNode<int>(binaryTree.Root.LeftChild, 28);
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 28)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnTrueWhenItemExistInRightSubtreeAndThanInItsLeftSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.RightChild = new BinaryTreeNode<int>(binaryTree.Root, 25);
+            binaryTree.Root.RightChild.LeftChild = new BinaryTreeNode<int>(binaryTree.Root.LeftChild, 22);
+
+            Assert.IsTrue(binaryTree.Contains(new BinaryTreeNode<int>(null, 22)));
+        }
+
+        [TestMethod]
+        public void ShouldReturnFalseWhenItemDoesNotExistAndTheTreeIsEmpty()
+        {
+            Assert.IsFalse(new BinarySearchTree<int>().Contains(new BinaryTreeNode<int>(null, 10)));
+        }
+
+        [TestMethod]
+        public void ShouldRetrnFalseWhenItemDoesNotExistInTree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            Assert.IsFalse(binaryTree.Contains(new BinaryTreeNode<int>(null, 21)));
+        }
+
+
+
         private void ShouldUpdateTheCounterWhenAddNewItems(int[] items, int itemsCount)
         {
             Assert.AreEqual(itemsCount, this.CreateTree(items).Count);
