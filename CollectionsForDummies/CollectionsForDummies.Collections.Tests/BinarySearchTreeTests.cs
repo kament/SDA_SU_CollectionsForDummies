@@ -5,6 +5,9 @@ namespace CollectionsForDummies.Collections.Tests
     [TestClass]
     public class BinarySearchTreeTests
     {
+        private const string ShouldReturnTrueFormat = "Should return true when remove {0} !";
+        private const string RemovedValueShouldBeNullOrReplacedByChild = "{0} should be reset to Null, or replaced by one of its child nodes!";
+
         [TestMethod]
         public void ShouldCreateBinarySearchTreeWhithoutGivingRootNode()
         {
@@ -334,7 +337,52 @@ namespace CollectionsForDummies.Collections.Tests
             Assert.IsFalse(binaryTree.Contains(new BinaryTreeNode<int>(null, 21)));
         }
 
+        [TestMethod]
+        public void ShouldRetrnFalseWhenItemDoesNotExistInTreeAndItsIntDefaulthValue()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
 
+            Assert.IsFalse(binaryTree.Contains(new BinaryTreeNode<int>(null, 0)));
+        }
+
+        [TestMethod]
+        public void ShouldRetrnFalseWhenItemDoesNotExistInTreeAndItsIntDefaulthValueAndTheTreeIsEmpty()
+        {
+            var binaryTree = new BinarySearchTree<int>();
+
+            Assert.IsFalse(binaryTree.Contains(new BinaryTreeNode<int>(null, 0)));
+        }
+
+        [TestMethod]
+        public void ShouldRemoveCorrectlyRootTagInATree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            Assert.IsTrue(binaryTree.Remove(new BinaryTreeNode<int>(null, 20)), string.Format(ShouldReturnTrueFormat, 20));
+            Assert.AreEqual(null, binaryTree.Root, string.Format(RemovedValueShouldBeNullOrReplacedByChild, "Root tag"));
+        }
+
+        [TestMethod]
+        public void ShouldRemoveCorrectlyTagWhichExistInTheLeftSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.LeftChild = new BinaryTreeNode<int>(binaryTree.Root, 10);
+
+            Assert.IsTrue(binaryTree.Remove(new BinaryTreeNode<int>(null, 10)), string.Format(ShouldReturnTrueFormat, 10));
+            Assert.AreEqual(null, binaryTree.Root.LeftChild, string.Format(RemovedValueShouldBeNullOrReplacedByChild, "Left Child"));
+        }
+
+        [TestMethod]
+        public void ShouldRemoveCorrectlyTagWhichExistInTheRightSubtree()
+        {
+            var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
+
+            binaryTree.Root.RightChild = new BinaryTreeNode<int>(binaryTree.Root, 22);
+
+            Assert.IsTrue(binaryTree.Remove(new BinaryTreeNode<int>(null, 22)), string.Format(ShouldReturnTrueFormat, 22));
+            Assert.AreEqual(null, binaryTree.Root.RightChild, string.Format(RemovedValueShouldBeNullOrReplacedByChild, "Right Child"));
+        }
 
         private void ShouldUpdateTheCounterWhenAddNewItems(int[] items, int itemsCount)
         {
