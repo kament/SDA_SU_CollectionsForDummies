@@ -147,8 +147,7 @@ namespace CollectionsForDummies.Collections
             else if (nodeInTheTree.HasRightChild)
             {
                 var minElement = this.GetMininalElement(nodeInTheTree.RightChild);
-
-                //TODO: should be unitested very carefully
+                
                 nodeInTheTree.Value = minElement.Value;
 
                 if (minElement.IsLeftChild)

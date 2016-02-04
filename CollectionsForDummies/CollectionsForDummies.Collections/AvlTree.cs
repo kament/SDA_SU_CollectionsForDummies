@@ -10,6 +10,16 @@ namespace CollectionsForDummies.Collections
         {
         }
 
+        public AvlTree(T rootValue)
+            :base(new BinaryTreeNode<T>(null, rootValue))
+        {
+        }
+
+        public AvlTree(T rootValue, TreeWalk treeWalk)
+            :base(new BinaryTreeNode<T>(null, rootValue), treeWalk)
+        {
+        }
+
         public void Add(T value)
         {
             this.Add(new BinaryTreeNode<T>(null, value));
