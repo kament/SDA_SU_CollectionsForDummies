@@ -401,6 +401,88 @@ namespace CollectionsForDummies.Collections.Tests
             Assert.AreEqual(40, binaryTree.Root.RightChild.RightChild.Value);
         }
 
+        [TestMethod]
+        public void ShouldRemoveRootLeftChild()
+        {
+            var numbers = new[] { 21, 17, 28, 13, 19, 22, 40 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 17));
+
+            Assert.AreEqual(21, binaryTree.Root.Value);
+            Assert.AreEqual(19, binaryTree.Root.LeftChild.Value);
+            Assert.AreEqual(13, binaryTree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(28, binaryTree.Root.RightChild.Value);
+            Assert.AreEqual(22, binaryTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(40, binaryTree.Root.RightChild.RightChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveRootRightChild()
+        {
+            var numbers = new[] { 21, 17, 28, 13, 19, 22, 40 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 28));
+
+            Assert.AreEqual(21, binaryTree.Root.Value);
+            Assert.AreEqual(17, binaryTree.Root.LeftChild.Value);
+            Assert.AreEqual(13, binaryTree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(19, binaryTree.Root.LeftChild.RightChild.Value);
+            Assert.AreEqual(40, binaryTree.Root.RightChild.Value);
+            Assert.AreEqual(22, binaryTree.Root.RightChild.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveNodeWhichHasLeftChildAndDoesNotHaveRightInTheLeftSubtree()
+        {
+            var numbers = new[] { 21, 17, 28, 13, 22, 40 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 17));
+            
+            Assert.AreEqual(13, binaryTree.Root.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveNodeWhichHasRightChildAndDoesNotHaveLeftInTheLeftSubtree()
+        {
+            var numbers = new[] { 21, 17, 28, 19, 22, 40 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 17));
+
+            Assert.AreEqual(19, binaryTree.Root.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveNodeWhichHasRightChildAndDoesNotHaveLeftInTheRightSubtree()
+        {
+            var numbers = new[] { 21, 17, 28, 13, 19, 40 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 28));
+
+            Assert.AreEqual(40, binaryTree.Root.RightChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveNodeWhichHasLeftChildAndDoesNotHaveRightInTheRightSubtree()
+        {
+            var numbers = new[] { 21, 17, 28, 13, 19, 22 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 28));
+
+            Assert.AreEqual(22, binaryTree.Root.RightChild.Value);
+        }
+
         private void ShouldUpdateTheCounterWhenAddNewItems(int[] items, int itemsCount)
         {
             Assert.AreEqual(itemsCount, this.CreateTree(items).Count);
