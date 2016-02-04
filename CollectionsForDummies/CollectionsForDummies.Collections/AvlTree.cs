@@ -98,7 +98,7 @@ namespace CollectionsForDummies.Collections
         {
             var newRoot = root.LeftChild;
             newRoot.Parent = root.Parent;
-
+            
             if (root.IsLeftChild)
             {
                 root.Parent.LeftChild = newRoot;
@@ -106,6 +106,11 @@ namespace CollectionsForDummies.Collections
             else if(root.IsRightChild)
             {
                 root.Parent.RightChild = newRoot;
+            }
+            else
+            {
+                //root is the real Avl tree root
+                this.Root = newRoot;
             }
 
             root.LeftChild = newRoot.RightChild;

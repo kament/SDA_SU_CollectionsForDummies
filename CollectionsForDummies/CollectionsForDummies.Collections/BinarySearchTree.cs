@@ -13,11 +13,12 @@ namespace CollectionsForDummies.Collections
     internal class BinarySearchTree<T> : ICollection<BinaryTreeNode<T>>
         where T : IComparable<T>
     {
-        public BinaryTreeNode<T> Root { get; private set; }
+        public BinaryTreeNode<T> Root { get; protected set; }
 
         public BinarySearchTree(BinaryTreeNode<T> rootNode)
         {
             this.Root = rootNode;
+            this.Count++;
         }
 
         public BinarySearchTree(BinaryTreeNode<T> rootNode, TreeWalk walk)
@@ -27,7 +28,6 @@ namespace CollectionsForDummies.Collections
         }
 
         public BinarySearchTree()
-            : this(null)
         {
         }
 

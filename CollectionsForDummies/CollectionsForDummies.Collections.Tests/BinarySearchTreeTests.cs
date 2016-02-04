@@ -27,6 +27,16 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
+        public void ShouldCreateBinarySearchTreeWithGivenRootAndUpdateTheCounter()
+        {
+            var rootNode = new BinaryTreeNode<int>(null);
+
+            var binarySearchTree = new BinarySearchTree<int>(rootNode);
+
+            Assert.AreEqual(1, binarySearchTree.Count);
+        }
+
+        [TestMethod]
         public void ShouldCreateBinarySearchTreeWithGivenRootAndTreeWalk()
         {
             var binarySearchTree = new BinarySearchTree<int>(null, TreeWalk.PreOrder);
