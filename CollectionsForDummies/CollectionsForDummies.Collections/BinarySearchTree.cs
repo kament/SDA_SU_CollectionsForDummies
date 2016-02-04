@@ -95,7 +95,7 @@ namespace CollectionsForDummies.Collections
         {
             return this.Search(item) != null;
         }
-        
+
         public virtual bool Remove(BinaryTreeNode<T> item)
         {
             var nodeInTheTree = this.Search(item);
@@ -106,15 +106,12 @@ namespace CollectionsForDummies.Collections
                 //throw new ArgumentException("Node does not exist! " + item.Value);
 
                 //return false is beter idea, i think
-                return false; 
+                return false;
             }
-
-            var isLeftNodeNull = nodeInTheTree.LeftChild == null;
-            var isRightNodeNull = nodeInTheTree.RightChild == null;
 
             var parentNode = nodeInTheTree.Parent;
 
-            if (nodeInTheTree.IsLeaf)
+            if (nodeInTheTree.IsLeaf && !nodeInTheTree.IsRoot)
             {
                 if (nodeInTheTree.IsLeftChild)
                 {
@@ -147,7 +144,7 @@ namespace CollectionsForDummies.Collections
                     parentNode.RightChild = nodeInTheTree.RightChild;
                 }
             }
-            else
+            else if (nodeInTheTree.HasRightChild)
             {
                 var minElement = this.GetMininalElement(nodeInTheTree.RightChild);
 
@@ -162,6 +159,11 @@ namespace CollectionsForDummies.Collections
                 {
                     minElement.Parent.RightChild = null;
                 }
+            }
+            else
+            {
+                //in this last case this will be the root tag, which has no child
+                this.Root = null;
             }
 
             this.Count--;

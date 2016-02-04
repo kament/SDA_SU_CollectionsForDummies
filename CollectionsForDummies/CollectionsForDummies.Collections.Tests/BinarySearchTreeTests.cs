@@ -354,7 +354,7 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
-        public void ShouldRemoveCorrectlyRootTagInATree()
+        public void ShouldRemoveCorrectlyRootTagInATreeWithNoChildNodes()
         {
             var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
 
@@ -382,6 +382,23 @@ namespace CollectionsForDummies.Collections.Tests
 
             Assert.IsTrue(binaryTree.Remove(new BinaryTreeNode<int>(null, 22)), string.Format(ShouldReturnTrueFormat, 22));
             Assert.AreEqual(null, binaryTree.Root.RightChild, string.Format(RemovedValueShouldBeNullOrReplacedByChild, "Right Child"));
+        }
+
+        [TestMethod]
+        public void ShouldRomoveRootElementAndReplaceItWithMinElementInRightSubtree()
+        {
+            var numbers = new[] { 21, 17, 28, 13, 19, 22, 40 };
+
+            var binaryTree = this.CreateTree(numbers);
+
+            binaryTree.Remove(new BinaryTreeNode<int>(null, 21));
+
+            Assert.AreEqual(22, binaryTree.Root.Value);
+            Assert.AreEqual(17, binaryTree.Root.LeftChild.Value);
+            Assert.AreEqual(19, binaryTree.Root.LeftChild.RightChild.Value);
+            Assert.AreEqual(13, binaryTree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(28, binaryTree.Root.RightChild.Value);
+            Assert.AreEqual(40, binaryTree.Root.RightChild.RightChild.Value);
         }
 
         private void ShouldUpdateTheCounterWhenAddNewItems(int[] items, int itemsCount)
