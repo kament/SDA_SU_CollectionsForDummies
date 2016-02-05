@@ -364,7 +364,7 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
-        public void ShouldRemoveCorrectlyRootTagInATreeWithNoChildNodes()
+        public void ShouldRemoveCorrectlyRootInTreeWithNoChildNodes()
         {
             var binaryTree = new BinarySearchTree<int>(new BinaryTreeNode<int>(null, 20));
 
