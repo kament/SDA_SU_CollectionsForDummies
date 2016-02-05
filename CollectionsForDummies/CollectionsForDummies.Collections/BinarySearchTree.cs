@@ -93,81 +93,14 @@ namespace CollectionsForDummies.Collections
 
         public bool Contains(BinaryTreeNode<T> item)
         {
-            return this.Search(item) != null;
+            return this.Find(item) != null;
         }
 
         public virtual bool Remove(BinaryTreeNode<T> item)
         {
-            var nodeInTheTree = this.Search(item);
+            var nodeInTheTree = this.Find(item);
 
-            if (nodeInTheTree == null)
-            {
-                //maybe its a good idea to return false
-                //throw new ArgumentException("Node does not exist! " + item.Value);
-
-                //return false is beter idea, i think
-                return false;
-            }
-
-            var parentNode = nodeInTheTree.Parent;
-
-            if (nodeInTheTree.IsLeaf && !nodeInTheTree.IsRoot)
-            {
-                if (nodeInTheTree.IsLeftChild)
-                {
-                    parentNode.LeftChild = null;
-                }
-                else if (nodeInTheTree.IsRightChild)
-                {
-                    parentNode.RightChild = null;
-                }
-            }
-            else if (nodeInTheTree.HasLeftChild && !nodeInTheTree.HasRightChild)
-            {
-                if (nodeInTheTree.IsLeftChild)
-                {
-                    parentNode.LeftChild = nodeInTheTree.LeftChild;
-                }
-                else if (nodeInTheTree.IsRightChild)
-                {
-                    parentNode.RightChild = nodeInTheTree.LeftChild;
-                }
-            }
-            else if (!nodeInTheTree.HasLeftChild && nodeInTheTree.HasRightChild)
-            {
-                if (nodeInTheTree.IsLeftChild)
-                {
-                    parentNode.LeftChild = nodeInTheTree.RightChild;
-                }
-                else if (nodeInTheTree.IsRightChild)
-                {
-                    parentNode.RightChild = nodeInTheTree.RightChild;
-                }
-            }
-            else if (nodeInTheTree.HasRightChild)
-            {
-                var minElement = this.GetMininalElement(nodeInTheTree.RightChild);
-                
-                nodeInTheTree.Value = minElement.Value;
-
-                if (minElement.IsLeftChild)
-                {
-                    minElement.Parent.LeftChild = null;
-                }
-                else
-                {
-                    minElement.Parent.RightChild = null;
-                }
-            }
-            else
-            {
-                //in this last case this will be the root tag, which has no child
-                this.Root = null;
-            }
-
-            this.Count--;
-
-            return true;
+            return this.RemoveTreeNode(nodeInTheTree);
         }
 
         public void CopyTo(BinaryTreeNode<T>[] array, int arrayIndex)
@@ -233,6 +166,111 @@ namespace CollectionsForDummies.Collections
             }
         }
 
+        /// <summary>
+        /// Remove node from current tree
+        /// </summary>
+        protected bool RemoveTreeNode(BinaryTreeNode<T> nodeInTheTree)
+        {
+            if (nodeInTheTree == null)
+            {
+                //maybe its a good idea to return false
+                //throw new ArgumentException("Node does not exist! " + item.Value);
+
+                //return false is beter idea, i think
+                return false;
+            }
+
+            var parentNode = nodeInTheTree.Parent;
+
+            if (nodeInTheTree.IsLeaf && !nodeInTheTree.IsRoot)
+            {
+                if (nodeInTheTree.IsLeftChild)
+                {
+                    parentNode.LeftChild = null;
+                }
+                else if (nodeInTheTree.IsRightChild)
+                {
+                    parentNode.RightChild = null;
+                }
+            }
+            else if (nodeInTheTree.HasLeftChild && !nodeInTheTree.HasRightChild)
+            {
+                if (nodeInTheTree.IsLeftChild)
+                {
+                    parentNode.LeftChild = nodeInTheTree.LeftChild;
+                }
+                else if (nodeInTheTree.IsRightChild)
+                {
+                    parentNode.RightChild = nodeInTheTree.LeftChild;
+                }
+            }
+            else if (!nodeInTheTree.HasLeftChild && nodeInTheTree.HasRightChild)
+            {
+                if (nodeInTheTree.IsLeftChild)
+                {
+                    parentNode.LeftChild = nodeInTheTree.RightChild;
+                }
+                else if (nodeInTheTree.IsRightChild)
+                {
+                    parentNode.RightChild = nodeInTheTree.RightChild;
+                }
+            }
+            else if (nodeInTheTree.HasRightChild)
+            {
+                var minElement = this.GetMininalElement(nodeInTheTree.RightChild);
+
+                nodeInTheTree.Value = minElement.Value;
+
+                if (minElement.IsLeftChild)
+                {
+                    minElement.Parent.LeftChild = null;
+                }
+                else
+                {
+                    minElement.Parent.RightChild = null;
+                }
+            }
+            else
+            {
+                //in this last case this will be the root tag, which has no child
+                this.Root = null;
+            }
+
+            this.Count--;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Search for node in the current tree
+        /// </summary>
+        /// <param name="treeNode">Node which should be found</param>
+        /// <returns>Node which value equals to "treeNode" value. If treed node does not exist return null</returns>
+        protected BinaryTreeNode<T> Find(BinaryTreeNode<T> treeNode)
+        {
+            var currentNode = this.Root;
+            BinaryTreeNode<T> foundNode = null;
+
+            while (currentNode != null)
+            {
+                if (treeNode.Value.CompareTo(currentNode.Value) == 0)
+                {
+                    foundNode = currentNode;
+                    break;
+                }
+                else if (treeNode.Value.CompareTo(currentNode.Value) < 0)
+                {
+                    currentNode = currentNode.LeftChild;
+                }
+                else
+                {
+                    currentNode = currentNode.RightChild;
+                }
+            }
+
+            return foundNode;
+        }
+
         //Return the min element in a tree
         private BinaryTreeNode<T> GetMininalElement(BinaryTreeNode<T> tree)
         {
@@ -257,36 +295,6 @@ namespace CollectionsForDummies.Collections
             }
 
             return minElement;
-        }
-
-        /// <summary>
-        /// Search for node in the current tree
-        /// </summary>
-        /// <param name="treeNode">Node which should be found</param>
-        /// <returns>Node which value equals to "treeNode" value. If treed node does not exist return null</returns>
-        private BinaryTreeNode<T> Search(BinaryTreeNode<T> treeNode)
-        {
-            var currentNode = this.Root;
-            BinaryTreeNode<T> foundNode = null;
-
-            while (currentNode != null)
-            {
-                if (treeNode.Value.CompareTo(currentNode.Value) == 0)
-                {
-                    foundNode = currentNode;
-                    break;
-                }
-                else if (treeNode.Value.CompareTo(currentNode.Value) < 0)
-                {
-                    currentNode = currentNode.LeftChild;
-                }
-                else
-                {
-                    currentNode = currentNode.RightChild;
-                }
-            }
-
-            return foundNode;
         }
     }
 }
