@@ -20,6 +20,14 @@ namespace CollectionsForDummies.Collections
         {
         }
 
+        public AvlTree(IEnumerable<T> numbers)
+        {
+            foreach (var number in numbers)
+            {
+                this.Add(number);
+            }
+        }
+
         public void Add(T value)
         {
             this.Add(new BinaryTreeNode<T>(null, value));
@@ -130,6 +138,11 @@ namespace CollectionsForDummies.Collections
             else if (root.IsLeftChild)
             {
                 root.Parent.LeftChild = newRoot;
+            }
+            else
+            {
+                //root is the real Avl tree root
+                this.Root = newRoot;
             }
 
             root.RightChild = newRoot.LeftChild;

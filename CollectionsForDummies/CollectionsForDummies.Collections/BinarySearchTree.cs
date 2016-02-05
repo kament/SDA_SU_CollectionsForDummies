@@ -15,6 +15,10 @@ namespace CollectionsForDummies.Collections
     {
         public BinaryTreeNode<T> Root { get; protected set; }
 
+        public BinarySearchTree()
+        {
+        }
+
         public BinarySearchTree(BinaryTreeNode<T> rootNode)
         {
             this.Root = rootNode;
@@ -26,11 +30,7 @@ namespace CollectionsForDummies.Collections
         {
             this.TreeWalk = walk;
         }
-
-        public BinarySearchTree()
-        {
-        }
-
+        
         public virtual TreeWalk TreeWalk { get; set; }
 
         public virtual int Count { get; private set; }
