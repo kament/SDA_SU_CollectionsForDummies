@@ -48,14 +48,21 @@ namespace CollectionsForDummies.Collections
         public override bool Remove(BinaryTreeNode<T> item)
         {
             var itemInTheTree = base.Find(item);
+            
+            if (itemInTheTree != null)
+            {
+                var nodeToBalance = itemInTheTree.Parent;
 
-            var nodeToBalance = itemInTheTree.Parent;
+                base.RemoveTreeNode(itemInTheTree);
 
-            var removed = base.RemoveTreeNode(itemInTheTree);
+                this.Balance(nodeToBalance);
 
-            this.Balance(nodeToBalance);
-
-            return removed;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected void Balance(BinaryTreeNode<T> startNode)

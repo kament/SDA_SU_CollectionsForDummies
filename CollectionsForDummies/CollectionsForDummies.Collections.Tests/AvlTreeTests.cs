@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CollectionsForDummies.Collections.Tests
 {
@@ -215,16 +213,130 @@ namespace CollectionsForDummies.Collections.Tests
             Assert.AreEqual(30, avlTree.Root.RightChild.RightChild.Value);
         }
 
-        private AvlTree<int> GetAvlTree(IEnumerable<int> numbers)
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetLeftLeftOverweightInLeftSubtree()
         {
-            var avlTree = new AvlTree<int>();
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 16, 10 });
 
-            foreach (var number in numbers)
-            {
-                avlTree.Add(number);
-            }
+            Assert.IsTrue(avlTree.Remove(30));
 
-            return avlTree;
+            Assert.AreEqual(15, avlTree.Root.Value);
+            Assert.AreEqual(20, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(16, avlTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(10, avlTree.Root.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetLeftRightOverweightInLeftSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 28, 16, 18 });
+
+            Assert.IsTrue(avlTree.Remove(30));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(28, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(16, avlTree.Root.LeftChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(18, avlTree.Root.LeftChild.RightChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetRightRightOverweightInLeftSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 28, 17, 18 });
+
+            Assert.IsTrue(avlTree.Remove(30));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(28, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(17, avlTree.Root.LeftChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(18, avlTree.Root.LeftChild.RightChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetRightLeftOverweightInLeftSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 28, 19, 17 });
+
+            Assert.IsTrue(avlTree.Remove(30));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(28, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(17, avlTree.Root.LeftChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(19, avlTree.Root.LeftChild.RightChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetRightRightOverweightInRightSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 40 , 16, 45});
+
+            Assert.IsTrue(avlTree.Remove(16));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(40, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(30, avlTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(45, avlTree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.Value);
+        }
+        
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetRightLeftOverweightInRightSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 40, 16, 35 });
+
+            Assert.IsTrue(avlTree.Remove(16));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(35, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(30, avlTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(40, avlTree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetLeftLeftOverweightInRightSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 28, 16, 22 });
+
+            Assert.IsTrue(avlTree.Remove(16));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(28, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(22, avlTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(30, avlTree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldRemoveItemAndBalanceTheTreeWhenItGetLeftRightOverweightInRightSubtree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 22, 16, 28 });
+
+            Assert.IsTrue(avlTree.Remove(16));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(28, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(22, avlTree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(30, avlTree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.Value);
+        }
+
+        [TestMethod]
+        public void ShouldReturnFalseAndNotTouchTheTreeWhenItemNotExestInTheTree()
+        {
+            var avlTree = new AvlTree<int>(new int[] { 20, 30, 15, 40, 16, 33 });
+
+            Assert.IsFalse(avlTree.Remove(999));
+
+            Assert.AreEqual(20, avlTree.Root.Value);
+            Assert.AreEqual(15, avlTree.Root.LeftChild.Value);
+            Assert.AreEqual(16, avlTree.Root.LeftChild.RightChild.Value);
+            Assert.AreEqual(33, avlTree.Root.RightChild.Value);
+            Assert.AreEqual(40, avlTree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(30, avlTree.Root.RightChild.LeftChild.Value);
         }
     }
 }
