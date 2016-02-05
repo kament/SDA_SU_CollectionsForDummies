@@ -65,6 +65,11 @@ namespace CollectionsForDummies.Collections
             }
         }
 
+        public bool Contains(T value)
+        {
+            return base.Contains(new BinaryTreeNode<T>(null, value));
+        }
+
         protected void Balance(BinaryTreeNode<T> startNode)
         {
             var nodeToBalance = startNode;
