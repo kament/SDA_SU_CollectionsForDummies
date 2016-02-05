@@ -184,36 +184,33 @@ namespace CollectionsForDummies.Collections
 
             if (nodeInTheTree.IsLeaf && !nodeInTheTree.IsRoot)
             {
-                if (nodeInTheTree.IsLeftChild)
-                {
-                    parentNode.LeftChild = null;
-                }
-                else if (nodeInTheTree.IsRightChild)
-                {
-                    parentNode.RightChild = null;
-                }
+                this.SetChildToParent(nodeInTheTree, parentNode, null);
             }
             else if (nodeInTheTree.HasLeftChild && !nodeInTheTree.HasRightChild)
             {
-                if (nodeInTheTree.IsLeftChild)
+                if (nodeInTheTree.IsRoot)
                 {
-                    parentNode.LeftChild = nodeInTheTree.LeftChild;
+                    this.Root = this.Root.LeftChild;
                 }
-                else if (nodeInTheTree.IsRightChild)
+                else
                 {
-                    parentNode.RightChild = nodeInTheTree.LeftChild;
+                    this.SetChildToParent(nodeInTheTree, parentNode, nodeInTheTree.LeftChild);
                 }
+
+                nodeInTheTree.LeftChild.Parent = parentNode;
             }
             else if (!nodeInTheTree.HasLeftChild && nodeInTheTree.HasRightChild)
             {
-                if (nodeInTheTree.IsLeftChild)
+                if (nodeInTheTree.IsRoot)
                 {
-                    parentNode.LeftChild = nodeInTheTree.RightChild;
+                    this.Root = this.Root.RightChild;
                 }
-                else if (nodeInTheTree.IsRightChild)
+                else
                 {
-                    parentNode.RightChild = nodeInTheTree.RightChild;
+                    this.SetChildToParent(nodeInTheTree, parentNode, nodeInTheTree.RightChild);
                 }
+
+                nodeInTheTree.RightChild.Parent = parentNode;
             }
             else if (nodeInTheTree.HasRightChild)
             {
@@ -239,6 +236,18 @@ namespace CollectionsForDummies.Collections
             this.Count--;
 
             return true;
+        }
+
+        private void SetChildToParent(BinaryTreeNode<T> currentNode, BinaryTreeNode<T> parentNode, BinaryTreeNode<T> nodeToSet)
+        {
+            if (currentNode.IsLeftChild)
+            {
+                parentNode.LeftChild = nodeToSet;
+            }
+            else if (currentNode.IsRightChild)
+            {
+                parentNode.RightChild = nodeToSet;
+            }
         }
 
         /// <summary>

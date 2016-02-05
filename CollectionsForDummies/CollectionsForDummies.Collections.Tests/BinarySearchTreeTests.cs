@@ -412,6 +412,104 @@ namespace CollectionsForDummies.Collections.Tests
         }
 
         [TestMethod]
+        public void ShouldChangeNewNodeRelationsWhenRemoveNodeWhichHasRightChildrensAndDoesNotHaveLeftInTheRightSubtree()
+        {
+            var tree = this.CreateTree(new[] { 20, 15, 28, 35, 30, 38 });
+
+            tree.Remove(new BinaryTreeNode<int>(null, 28));
+
+            Assert.AreEqual(20, tree.Root.Value);
+
+            Assert.AreEqual(35, tree.Root.RightChild.Value);
+            Assert.AreEqual(20, tree.Root.RightChild.Parent.Value);
+
+            Assert.AreEqual(30, tree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(35, tree.Root.RightChild.LeftChild.Parent.Value);
+
+            Assert.AreEqual(38, tree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(35, tree.Root.RightChild.RightChild.Parent.Value);
+        }
+
+        [TestMethod]
+        public void ShouldChangeNewNodeRelationsWhenRemoveNodeWhichHasLeftChildrensAndDoesNotHaveRightInTheRightSubtree()
+        {
+            var tree = this.CreateTree(new[] { 20, 15, 48, 35, 30, 38 });
+
+            tree.Remove(new BinaryTreeNode<int>(null, 48));
+
+            Assert.AreEqual(20, tree.Root.Value);
+
+            Assert.AreEqual(35, tree.Root.RightChild.Value);
+            Assert.AreEqual(20, tree.Root.RightChild.Parent.Value);
+
+            Assert.AreEqual(30, tree.Root.RightChild.LeftChild.Value);
+            Assert.AreEqual(35, tree.Root.RightChild.LeftChild.Parent.Value);
+
+            Assert.AreEqual(38, tree.Root.RightChild.RightChild.Value);
+            Assert.AreEqual(35, tree.Root.RightChild.RightChild.Parent.Value);
+        }
+
+        [TestMethod]
+        public void ShouldChangeNewNodeRelationsWhenRemoveNodeWhichHasRightChildrensAndDoesNotHaveLeftInTheLeftSubtree()
+        {
+            var tree = this.CreateTree(new[] { 30, 40, 15, 25, 28, 20 });
+
+            tree.Remove(new BinaryTreeNode<int>(null, 15));
+
+            Assert.AreEqual(30, tree.Root.Value);
+
+            Assert.AreEqual(25, tree.Root.LeftChild.Value);
+            Assert.AreEqual(30, tree.Root.LeftChild.Parent.Value);
+
+            Assert.AreEqual(20, tree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(25, tree.Root.LeftChild.LeftChild.Parent.Value);
+
+            Assert.AreEqual(28, tree.Root.LeftChild.RightChild.Value);
+            Assert.AreEqual(25, tree.Root.LeftChild.RightChild.Parent.Value);
+        }
+
+        [TestMethod]
+        public void ShouldChangeNewNodeRelationsWhenRemoveNodeWhichHasLeftChildrensAndDoesNotHaveRightInTheLeftSubtree()
+        {
+            var tree = this.CreateTree(new[] { 35, 40, 30, 25, 28, 20 });
+
+            tree.Remove(new BinaryTreeNode<int>(null, 30));
+
+            Assert.AreEqual(35, tree.Root.Value);
+
+            Assert.AreEqual(25, tree.Root.LeftChild.Value);
+            Assert.AreEqual(35, tree.Root.LeftChild.Parent.Value);
+
+            Assert.AreEqual(20, tree.Root.LeftChild.LeftChild.Value);
+            Assert.AreEqual(25, tree.Root.LeftChild.LeftChild.Parent.Value);
+
+            Assert.AreEqual(28, tree.Root.LeftChild.RightChild.Value);
+            Assert.AreEqual(25, tree.Root.LeftChild.RightChild.Parent.Value);
+        }
+
+        [TestMethod]
+        public void ShouldMakeRightChildRootWhenRemoveTheRootAndItHasNoLeftValues()
+        {
+            var tree = CreateTree(new[] { 10, 20 });
+
+            tree.Remove(new BinaryTreeNode<int>(null, 10));
+
+            Assert.AreEqual(20, tree.Root.Value);
+            Assert.AreEqual(null, tree.Root.Parent);
+        }
+
+        [TestMethod]
+        public void ShouldMakeLeftChildRootWhenRemoveTheRootAndItHasNoRightValues()
+        {
+            var tree = CreateTree(new[] { 30, 4 });
+
+            tree.Remove(new BinaryTreeNode<int>(null, 30));
+
+            Assert.AreEqual(4, tree.Root.Value);
+            Assert.AreEqual(null, tree.Root.Parent);
+        }
+
+        [TestMethod]
         public void ShouldRemoveRootLeftChild()
         {
             var numbers = new[] { 21, 17, 28, 13, 19, 22, 40 };
